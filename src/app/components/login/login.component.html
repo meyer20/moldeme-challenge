@@ -1,25 +1,25 @@
 <div id="loginContent">
   <div id="login-container" class="p-3 custom-box-shadow">
-    <div id="image" class="mb-3">
+    <div id="image" class="mb-3 text-center">
       <img src="assets/logo.png">
     </div>
-    <div id="formContent" style="min-width: 350px">
-      <form>
+    <div id="formContent">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="row m-0">
           <div class="mb-3 w-100">
             <label for="email">Email</label>
-            <input id="email" type="text" class="form-control" placeholder="Email">
+            <input id="email" type="text" class="form-control" placeholder="Email" formControlName="email">
           </div>
         </div>
 
         <div class="row m-0">
           <div class="mb-3 w-100">
             <label for="password">Senha</label>
-            <input id="password" type="password" class="form-control" placeholder="Senha">
+            <input id="password" type="password" class="form-control" placeholder="Senha" formControlName="password">
           </div>
         </div>
 
-        <button type="button" class="btn btn-success">Login</button>
+        <button type="submit" class="btn btn-success" [disabled]="!loginForm.touched && !loginForm.valid">Login</button>
       </form>
     </div>
   </div>

@@ -11,6 +11,9 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
+      <li *ngIf="currentUser?.name" class="nav-item">
+        <a class="nav-link" (click)="logout()">{{ currentUser.name }}</a>
+      </li>
     </ul>
   </div>
 </nav>

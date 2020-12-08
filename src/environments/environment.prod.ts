@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  endpointURL: 'https://recrutamento.molde.me'
 };
