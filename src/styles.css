@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.custom-box-shadow {
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
+  box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
+}
