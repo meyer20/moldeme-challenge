@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .custom-box-shadow {
   -webkit-box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
@@ -7,5 +11,15 @@
   box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-table {
+  box-shadow: none !important;
+}
+
+.vertical-center-align {
+  display: flex;
+  align-items: center;
+}
+
+.sidenav__container {
+  padding: 0 !important;
+}

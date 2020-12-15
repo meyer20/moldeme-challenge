@@ -1,6 +1,8 @@
 <div style="display: grid; place-items: center;">
   <h1>Listagem</h1>
 
+  <button type="button" class="btn btn-success" (click)="openFabricCreate()">Adicionar tecido</button>
+
   <table mat-table [dataSource]="data" class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columns; let i = index">
       <th mat-header-cell *matHeaderCellDef> {{columnsNames[i]}} </th>
@@ -11,4 +13,10 @@
     <tr mat-row *matRowDef="let element; columns: columns;"></tr>
   </table>
 
+  <mat-paginator [length]="totalResults" [pageSize]="10"></mat-paginator>
+
 </div>
+
+<ng-template #fabricTemplate>
+  <app-create-fabric (close)="closeFabricCreate($event)"></app-create-fabric>
+</ng-template>

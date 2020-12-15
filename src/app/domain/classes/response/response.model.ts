@@ -1,5 +1,5 @@
 export class ResponseModel<T> {
-  data: T;
+  data: T[];
   limit: number;
   page: number;
   pages: number;

@@ -23,10 +23,10 @@ export class FabricService {
     return this.http.delete(`${environment.endpointURL}/fabric/${id}`).pipe(catchError(err => err));
   }
 
-  getAllFabrics() {
-    return this.http.get(`${environment.endpointURL}/fabric`).pipe(map((fabricData: ResponseModel<FabricModel>) => {
-      console.log('fabricData', fabricData);
-      return fabricData.data;
+  getAllFabrics(pageIndex = 1, limit = 10) {
+    return this.http.get(`${environment.endpointURL}/fabric?limit=${limit}&page=${pageIndex}`)
+      .pipe(map((fabricData: ResponseModel<FabricModel>) => {
+      return fabricData;
     }), catchError(err => err));
   }
 }

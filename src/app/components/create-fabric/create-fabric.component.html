@@ -1,0 +1,100 @@
+<app-sidenav-content>
+  <div icon (click)="close.emit()">
+    <i class="fas fa-times"></i>
+  </div>
+  <div header>
+    Novo tecido
+  </div>
+  <div content>
+    <form [formGroup]="fabricForm">
+      <div class="form-group">
+        <label for="fabricName">Nome</label>
+        <input type="text" class="form-control"
+               id="fabricName"
+               placeholder="Nome do tecido"
+               formControlName="name">
+        <div *ngIf="fabricForm.controls['name'].errors && (fabricForm.controls['name'].touched || submitButtonClicked)">
+          <small class="form-text text-danger" *ngIf="fabricForm.controls['name'].errors.required">
+            Nome não pode ser vazio.
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fabricWidth">Largura</label>
+        <input type="number"
+               id="fabricWidth"
+               class="form-control"
+               placeholder="Largura do tecido"
+               formControlName="width"
+               [min]="0">
+        <div *ngIf="fabricForm.controls['width'].errors && (fabricForm.controls['width'].touched || submitButtonClicked)">
+          <small class="form-text text-danger" *ngIf="fabricForm.controls['width'].errors">
+            {{ getErrorMessage(fabricForm.controls['width'].errors) }}
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fabricLength">Comprimento</label>
+        <input type="number"
+               id="fabricLength"
+               class="form-control"
+               placeholder="Comprimento do tecido"
+               formControlName="length"
+               [min]="0">
+        <div *ngIf="fabricForm.controls['length'].errors && (fabricForm.controls['length'].touched || submitButtonClicked)">
+          <small class="form-text text-danger" *ngIf="fabricForm.controls['length'].errors">
+            {{ getErrorMessage(fabricForm.controls['length'].errors) }}
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fabricGrammage">Gramatura</label>
+        <input type="number"
+               id="fabricGrammage"
+               class="form-control"
+               placeholder="Gramatura do tecido"
+               formControlName="grammage"
+               [min]="0">
+        <div *ngIf="fabricForm.controls['grammage'].errors && (fabricForm.controls['grammage'].touched || submitButtonClicked)">
+          <small class="form-text text-danger" *ngIf="fabricForm.controls['grammage'].errors">
+            {{ getErrorMessage(fabricForm.controls['grammage'].errors) }}
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fabricPrice">Preço</label>
+        <input type="number"
+               class="form-control"
+               id="fabricPrice"
+               placeholder="Preço do tecido"
+               formControlName="price"
+               [min]="0">
+        <div *ngIf="fabricForm.controls['price'].errors && (fabricForm.controls['price'].touched || submitButtonClicked)">
+          <small class="form-text text-danger" *ngIf="fabricForm.controls['price'].errors">
+            {{ getErrorMessage(fabricForm.controls['price'].errors) }}
+          </small>
+        </div>
+      </div>
+    </form>
+
+    <hr>
+
+    <h3>Dados gerais:</h3>
+    <div class="p-3" style="border: 1px solid #ccc; border-radius: 4px;">
+      <p>Quantidade de tecido: {{ calculateFabricData('area') || 0 | number}}m²</p>
+      <p>Peso total: {{ calculateFabricData('height') || 0 | number}}Kg</p>
+      <p>Valor do frete: {{ calculateFabricData('deliveryCost') || 0 | currency: 'BRL' }}</p>
+      <p>Valor do tecido: {{ calculateFabricData('fabricCost') || 0 | currency: 'BRL'}}</p>
+    </div>
+    <h2 class="mt-4 mb-0">Total: {{ calculateFabricData('totalCost') || 0 | currency: 'BRL'}}</h2>
+  </div>
+
+  <div footer>
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary">
+            Salvar tecido
+        <span *ngIf="fabricForm.valid">
+          : {{ calculateFabricData('totalCost') || 0 | currency: 'BRL'}}
+        </span>
+    </button>
+  </div>
+</app-sidenav-content>

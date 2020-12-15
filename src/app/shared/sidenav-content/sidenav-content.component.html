@@ -1,0 +1,16 @@
+<div id="sidenavContent">
+  <div class="header">
+    <div class="icon vertical-center-align">
+      <ng-content select="[icon]"></ng-content>
+    </div>
+    <div class="title vertical-center-align">
+      <ng-content select="[header]"></ng-content>
+    </div>
+  </div>
+  <div class="content p-4">
+    <ng-content select="[content]"></ng-content>
+  </div>
+  <div class="footer p-4 vertical-center-align">
+    <ng-content select="[footer]"></ng-content>
+  </div>
+</div>

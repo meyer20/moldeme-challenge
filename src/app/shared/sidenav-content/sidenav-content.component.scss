@@ -1,0 +1,28 @@
+#sidenavContent {
+  .header {
+    height: 60px;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    grid-template-columns: 60px auto;
+    grid-gap: 10px;
+
+    .icon {
+      justify-content: center;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .title {
+      font-size: 20px;
+    }
+  }
+
+  .content {
+    height: calc(100vh - 120px);
+    overflow: auto;
+  }
+
+  .footer {
+    height: 60px;
+  }
+}
