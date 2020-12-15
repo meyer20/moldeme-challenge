@@ -6,6 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { CreateFabricComponent } from './create-fabric.component';
 import { SidenavContentModule } from '../../shared/sidenav-content/sidenav-content.module';
+import { FabricDataDetailsModule } from '../fabric-data-details/fabric-data-details.module';
 
 @NgModule({
   declarations: [CreateFabricComponent],
@@ -14,7 +15,8 @@ import { SidenavContentModule } from '../../shared/sidenav-content/sidenav-conte
     ServicesModule,
     ReactiveFormsModule,
     SharedModule,
-    SidenavContentModule
+    SidenavContentModule,
+    FabricDataDetailsModule
   ],
   exports: [CreateFabricComponent]
 })

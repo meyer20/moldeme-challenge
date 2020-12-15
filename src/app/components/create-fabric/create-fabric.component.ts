@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FabricModel } from '../../domain/classes/fabric/fabric.model';
 import { FabricStore } from '../../stores/fabric.store';
-import { FabricUtils } from '../../shared/utils/fabric.utils';
 import { minValueValidator } from '../../shared/utils/min-value-validator.directive';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-create-fabric',
@@ -13,7 +13,6 @@ import { minValueValidator } from '../../shared/utils/min-value-validator.direct
 export class CreateFabricComponent implements OnInit {
   @Input() fabricData?: FabricModel;
   @Output() close = new EventEmitter();
-  fabricUtils = FabricUtils;
   submitButtonClicked = false;
 
   fabricForm = new FormGroup({
@@ -24,22 +23,21 @@ export class CreateFabricComponent implements OnInit {
     price: new FormControl('', [Validators.required, Validators.minLength(1), minValueValidator(0)])
   });
 
-  constructor(private fabricStore: FabricStore) { }
+  constructor(private fabricStore: FabricStore, private snackbarService: SnackbarService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     if (this.fabricForm.valid) {
       const data = this.fabricForm.value as FabricModel;
       this.fabricStore.addNewFabric(data).subscribe((fabric: FabricModel) => {
-        console.log('data', fabric);
         this.close.emit('success');
-      }, error => {
-        // TODO Error handling
+        this.snackbarService.show(`Tecido ${fabric.name} inserido com sucesso!`, true);
+      }, errorResponse => {
+        this.snackbarService.show(errorResponse.error.message, true);
       });
-      console.log(this.fabricForm);
     } else {
+      this.snackbarService.show('Existem campos não preenchidos ou não válidos', true);
       this.submitButtonClicked = true;
     }
   }
@@ -59,22 +57,5 @@ export class CreateFabricComponent implements OnInit {
 
   getFieldValue(fieldName: string) {
     return Number(this.fabricForm.value[fieldName]);
-  }
-
-  calculateFabricData(calcType: string) {
-    switch (calcType) {
-      case 'area':
-        return this.fabricUtils.calculateArea(this.getFieldValue('width'), this.getFieldValue('length'));
-      case 'height':
-        return this.fabricUtils.calculateHeight(this.getFieldValue('grammage'),
-          this.calculateFabricData('area'));
-      case 'deliveryCost':
-        return this.fabricUtils.calculateDeliveryCost(this.getFieldValue('width'), this.getFieldValue('length'),
-          this.getFieldValue('grammage'));
-      case 'fabricCost':
-        return this.calculateFabricData('area') * this.getFieldValue('price');
-      case 'totalCost':
-        return this.calculateFabricData('deliveryCost') + this.calculateFabricData('fabricCost');
-    }
   }
 }

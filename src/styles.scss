@@ -12,7 +12,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-table {
-  box-shadow: none !important;
+  table-layout: fixed;
 }
 
 .vertical-center-align {
@@ -22,4 +22,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .sidenav__container {
   padding: 0 !important;
+}
+
+.default-box {
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

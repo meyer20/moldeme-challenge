@@ -9,6 +9,7 @@ import { JwtInterceptor } from './services/interceptor';
 import { ServicesModule } from './services/services.module';
 import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderModule } from './components/header/header.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     ServicesModule,
     ComponentsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HeaderModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]

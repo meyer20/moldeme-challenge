@@ -80,21 +80,15 @@
     <hr>
 
     <h3>Dados gerais:</h3>
-    <div class="p-3" style="border: 1px solid #ccc; border-radius: 4px;">
-      <p>Quantidade de tecido: {{ calculateFabricData('area') || 0 | number}}m²</p>
-      <p>Peso total: {{ calculateFabricData('height') || 0 | number}}Kg</p>
-      <p>Valor do frete: {{ calculateFabricData('deliveryCost') || 0 | currency: 'BRL' }}</p>
-      <p>Valor do tecido: {{ calculateFabricData('fabricCost') || 0 | currency: 'BRL'}}</p>
-    </div>
-    <h2 class="mt-4 mb-0">Total: {{ calculateFabricData('totalCost') || 0 | currency: 'BRL'}}</h2>
+    <app-fabric-data-details
+      [width]="getFieldValue('width')"
+      [grammage]="getFieldValue('grammage')"
+      [length]="getFieldValue('length')"
+      [price]="getFieldValue('price')">
+    </app-fabric-data-details>
   </div>
 
   <div footer>
-    <button (click)="onSubmit()" type="submit" class="btn btn-primary">
-            Salvar tecido
-        <span *ngIf="fabricForm.valid">
-          : {{ calculateFabricData('totalCost') || 0 | currency: 'BRL'}}
-        </span>
-    </button>
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary">Salvar tecido</button>
   </div>
 </app-sidenav-content>

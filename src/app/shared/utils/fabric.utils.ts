@@ -7,7 +7,6 @@ export class FabricUtils {
   }
 
   static calculateHeight(grammage: number = 0, area: number = 0): number {
-    console.log('calculateHeight');
     return this.returnHandler(area / grammage);
   }
 
@@ -19,12 +18,7 @@ export class FabricUtils {
     return value === Infinity ? 0 : value;
   }
 
-  static getUnitSufix(value, valueType) {
-    switch (valueType) {
-      case 'heigth':
-        return value.toFixed(2) + 'Kg';
-      case 'money':
-        return value + 'R$';
-    }
+  static calculateShirtsQuantity(width: number = 0, length: number = 0): number {
+    return this.returnHandler(this.calculateArea(width, length) / this.FABRIC_AREA);
   }
 }

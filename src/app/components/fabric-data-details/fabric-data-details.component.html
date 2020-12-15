@@ -1,0 +1,5 @@
+<p>Quantidade de tecido: {{ calculateFabricData('area') || 0 | number}}m²</p>
+<p>Peso total: {{ calculateFabricData('height') || 0 | number}}Kg</p>
+<p>Valor do frete: {{ calculateFabricData('deliveryCost') || 0 | currency: 'BRL' }}</p>
+<p>Valor do tecido: {{ calculateFabricData('fabricCost') || 0 | currency: 'BRL'}}</p>
+<h2 class="mt-4 mb-0">Total: {{ calculateFabricData('totalCost') || 0 | currency: 'BRL'}}</h2>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { LoginRequest } from '../../domain/classes/login/login-request';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(2)])
   });
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private snackbarService: SnackbarService) { }
 
   ngOnInit(): void {
 
@@ -22,9 +23,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.touched && this.loginForm.valid) {
-      console.log(this.loginForm.value);
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe(data => {
-        console.log('data', data);
+      }, errorResponse => {
+        this.snackbarService.show(errorResponse.error.message, true);
       });
     }
   }

@@ -1,19 +1,19 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FabricModel } from '../../domain/classes/fabric/fabric.model';
 import { FabricStore } from '../../stores/fabric.store';
 import { Subscription } from 'rxjs';
-import { MatPaginator} from '@angular/material/paginator';
 import { NgxYazuoSidenavService, YazuoSidenavDirection, YazuoSidenavSettings } from 'ngx-yazuo-sidenav';
 import { ResponseModel } from '../../domain/classes/response/response.model';
+import { FabricUtils } from '../../shared/utils/fabric.utils';
+import { UnitTypesEnum } from 'src/app/shared/enums/unit-types.enum';
 
 @Component({
   selector: 'app-factory-list',
   templateUrl: './factory-list.component.html',
   styleUrls: ['./factory-list.component.scss']
 })
-export class FactoryListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class FactoryListComponent implements OnInit, OnDestroy {
   @ViewChild('fabricTemplate', {static: true}) fabricTemplate: TemplateRef<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   sidebarSettings: YazuoSidenavSettings = {
     width: 35,
@@ -31,32 +31,40 @@ export class FactoryListComponent implements OnInit, OnDestroy, AfterViewInit {
     'width',
     'length',
     'grammage',
-    'price'
+    'price',
+    'totalPrice',
+    'shirts'
   ];
   columnsNames = [
-    'Id',
+    'ID',
     'Nome',
     'Largura',
     'Tamanho',
     'Gramatura',
-    'Preço'
+    'Preço',
+    'Preço total',
+    'Quantidade de camisas'
   ];
   expandedElement: FabricModel | null;
   subscriptions: Subscription = new Subscription();
+  fabricUtils = FabricUtils;
+  unitTypesEnum = UnitTypesEnum;
+  betterFabric: FabricModel;
+  createFabricDialogOpen = false;
+  Array = Array;
+  DEFAULT_PAGE_SIZE = 10;
+  limitIndex = this.DEFAULT_PAGE_SIZE;
+  currentPage = 1;
+  totalPages = 0;
+  allDataLoaded = false;
 
   constructor(private fabricStore: FabricStore,
               private yazuoSidenav: NgxYazuoSidenavService) { }
 
   ngOnInit(): void {
     this.fabricStore.populateFabrics();
-    this.populateData();
-  }
-
-  ngAfterViewInit() {
-    this.paginator.page.subscribe((page) => {
-      console.log('page', page);
-      this.populateData(page.pageIndex + 1);
-    });
+    this.getFabricDataByPage();
+    this.getBestCostAndBenefit();
   }
 
   ngOnDestroy(): void {
@@ -64,22 +72,52 @@ export class FactoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openFabricCreate(): void {
+    this.createFabricDialogOpen = true;
     this.yazuoSidenav.open(this.fabricTemplate, this.sidebarSettings);
   }
 
   closeFabricCreate(status): void {
     if (status === 'success') {
-      this.populateData();
+      this.getFabricDataByPage(0);
     }
+    this.createFabricDialogOpen = false;
     this.yazuoSidenav.close();
   }
 
-  populateData(pageIndex = 1) {
+  getFabricDataByPage(pageIndex = 1) {
     this.subscriptions.add(this.fabricStore.populateFabricsData(pageIndex).subscribe((data: ResponseModel<FabricModel>) => {
-      console.log('atualizei aqui', data.data);
       this.data = data.data;
-      console.log('1111', this.fabricStore.getFabrics());
       this.totalResults = data.total;
+      this.allDataLoaded = true;
+      this.totalPages = this.getTotalPages();
     }));
+  }
+
+  calculateData(column: string, fabric: FabricModel) {
+    if (column === 'shirts') {
+      return this.fabricUtils.calculateShirtsQuantity(fabric.width, fabric.length);
+
+    }
+    return this.fabricUtils.calculateDeliveryCost(fabric.width, fabric.length, fabric.grammage)
+      + (fabric.price * this.fabricUtils.calculateArea(fabric.width, fabric.length));
+  }
+
+  getRowValue(column, element) {
+    return ['totalPrice', 'shirts'].indexOf(column) === -1 ? element[column] : this.calculateData(column, element);
+  }
+
+  getTotalPages() {
+    return Math.round(this.totalResults / this.DEFAULT_PAGE_SIZE);
+  }
+
+  private getBestCostAndBenefit() {
+    this.fabricStore.betterCostAndBenefit$.subscribe(fabric => {
+      this.betterFabric = fabric;
+    });
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.getFabricDataByPage(page);
   }
 }
