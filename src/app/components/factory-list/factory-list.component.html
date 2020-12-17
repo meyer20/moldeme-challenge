@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <div class="row">
-    <div [class.col-lg-8]="betterFabric" [class.col-lg-12]="!betterFabric" class="pl-0">
+    <div class="p-0 mb-4"
+         [class.col-lg-8]="betterFabric"
+         [class.col-lg-12]="!betterFabric"
+         [class.pr-3]="windowWidth > windowSizeEnum.LG">
       <div class="p-3 default-box">
         <h1>Listagem de tecidos</h1>
 
@@ -24,35 +27,44 @@
               </tr>
             </tbody>
           </table>
+        </div>
 
-          <button type="button" class="btn btn-success position-absolute" (click)="openFabricCreate()">Adicionar tecido</button>
-
-          <nav>
-            <ul class="pagination justify-content-end">
-              <li class="page-item" [class.disabled]="currentPage === 1">
-                <a class="page-link" tabindex="-1" (click)="goToPage(currentPage - 1)">
-                  Voltar
-                </a>
-              </li>
-              <li *ngFor="let page of Array(totalPages); let i = index"
-                  [class.active]="(i + 1) === currentPage"
-                  class="page-item">
-                <a class="page-link" (click)="goToPage(i + 1)">
-                  {{ i + 1 }}
-                </a>
-              </li>
-              <li class="page-item" [class.disabled]="currentPage === totalPages">
-                <a class="page-link" (click)="goToPage(currentPage + 1)">
-                  Próximo
-                </a>
-              </li>
-            </ul>
-          </nav>
+        <div class="row">
+          <div class="col-lg-8"
+               [class.text-center]="windowWidth < windowSizeEnum.LG"
+               [class.mb-3]="windowWidth < windowSizeEnum.XL">
+            <button type="button" class="btn btn-success" (click)="openFabricCreate()">
+              Adicionar tecido
+            </button>
+          </div>
+          <div class="col-lg-4">
+            <nav>
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" tabindex="-1" (click)="goToPage(currentPage - 1)">
+                    Voltar
+                  </a>
+                </li>
+                <li *ngFor="let page of Array(totalPages); let i = index"
+                    [class.active]="(i + 1) === currentPage"
+                    class="page-item">
+                  <a class="page-link" (click)="goToPage(i + 1)">
+                    {{ i + 1 }}
+                  </a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToPage(currentPage + 1)">
+                    Próximo
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </div>
 
-    <div *ngIf="betterFabric?.id" class="col-lg-4 pr-0 pl-0">
+    <div *ngIf="betterFabric?.id" class="col-lg-4 pr-0 pl-0 mb-4">
       <div class="p-3 default-box">
         <h1>Tecido mais vantajoso</h1>
         <h2>{{ betterFabric.name }}</h2>

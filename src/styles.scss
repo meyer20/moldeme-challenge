@@ -6,9 +6,9 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .custom-box-shadow {
-  -webkit-box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
-  -moz-box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
-  box-shadow: 0px 0px 10px 1px rgba(204,204,204,1);
+  -webkit-box-shadow: 0 0 10px 1px rgba(204,204,204,1);
+  -moz-box-shadow: 0 0 10px 1px rgba(204,204,204,1);
+  box-shadow: 0 0 10px 1px rgba(204,204,204,1);
 }
 
 .mat-table {
@@ -27,4 +27,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .default-box {
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.grid-align-center {
+  display: grid;
+  place-items: center;
 }

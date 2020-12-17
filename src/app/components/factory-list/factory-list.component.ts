@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FabricModel } from '../../domain/classes/fabric/fabric.model';
 import { FabricStore } from '../../stores/fabric.store';
 import { Subscription } from 'rxjs';
@@ -6,6 +6,8 @@ import { NgxYazuoSidenavService, YazuoSidenavDirection, YazuoSidenavSettings } f
 import { ResponseModel } from '../../domain/classes/response/response.model';
 import { FabricUtils } from '../../shared/utils/fabric.utils';
 import { UnitTypesEnum } from 'src/app/shared/enums/unit-types.enum';
+import { WindowSizeEnum } from '../../shared/enums/window-size.enum';
+import { SideDialogSizeEnum } from '../../shared/enums/side-dialog-size.enum';
 
 @Component({
   selector: 'app-factory-list',
@@ -16,7 +18,7 @@ export class FactoryListComponent implements OnInit, OnDestroy {
   @ViewChild('fabricTemplate', {static: true}) fabricTemplate: TemplateRef<any>;
 
   sidebarSettings: YazuoSidenavSettings = {
-    width: 35,
+    width: SideDialogSizeEnum.XL,
     clickOutside: false,
     bgColor: '#FFF',
     animationTime: 0.4,
@@ -57,9 +59,33 @@ export class FactoryListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   totalPages = 0;
   allDataLoaded = false;
+  dialogSize = SideDialogSizeEnum.XL;
+  windowWidth = SideDialogSizeEnum.XL;
+  windowSizeEnum = WindowSizeEnum;
 
   constructor(private fabricStore: FabricStore,
               private yazuoSidenav: NgxYazuoSidenavService) { }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.windowWidth = event.target.innerWidth;
+
+    if (this.windowWidth < this.windowSizeEnum.XL) {
+      this.dialogSize = SideDialogSizeEnum.LG;
+    }
+
+    if (this.windowWidth < this.windowSizeEnum.LG) {
+      this.dialogSize = SideDialogSizeEnum.MD;
+    }
+
+    if (this.windowWidth < this.windowSizeEnum.MD) {
+      this.dialogSize = SideDialogSizeEnum.SM;
+    }
+
+    if (this.windowWidth > this.windowSizeEnum.XL) {
+      this.dialogSize = SideDialogSizeEnum.XL;
+    }
+  }
 
   ngOnInit(): void {
     this.fabricStore.populateFabrics();
@@ -73,6 +99,7 @@ export class FactoryListComponent implements OnInit, OnDestroy {
 
   openFabricCreate(): void {
     this.createFabricDialogOpen = true;
+    this.sidebarSettings.width = this.dialogSize;
     this.yazuoSidenav.open(this.fabricTemplate, this.sidebarSettings);
   }
 
