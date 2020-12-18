@@ -4,13 +4,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Instalação e execução
 
-Primeiramente, executar o comando `npm i` para realizar o download das dependências do projeto, após isso, executar o comando `npm start` para subir o servidor da aplicação no endereço `http://localhost:4200/`. 
+Primeiramente, executar o comando `npm i` para realizar o download das dependências do projeto, após isso, executar o comando `npm start-server` para subir o servidor da aplicação no endereço `http://localhost:4200/`. 
 
 ## Dependências utilizadas
 
 * Bootstrap 4
 * ngx-yazou-sidenav (Sidenav utilizado no cadastro de tecidos)
 * Angular Material
+* Express (Para utilização no Heroku)
 
 ## Demais considerações
 
