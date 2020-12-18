@@ -6,6 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Primeiramente, executar o comando `npm i` para realizar o download das dependências do projeto, após isso, executar o comando `npm start-server` para subir o servidor da aplicação no endereço `http://localhost:4200/`. 
 
+Ou, o projeto pode ser acessado através do link: https://moldeme-challange.herokuapp.com/
 ## Dependências utilizadas
 
 * Bootstrap 4
