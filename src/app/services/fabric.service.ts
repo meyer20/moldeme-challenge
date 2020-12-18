@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+
 import { FabricModel } from '../domain/classes/fabric/fabric.model';
 import { environment } from '../../environments/environment';
-import { catchError, map } from 'rxjs/operators';
 import { ResponseModel } from '../domain/classes/response/response.model';
 import { SnackbarService } from './snackbar.service';
 

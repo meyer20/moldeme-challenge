@@ -91,6 +91,7 @@ export class FactoryListComponent implements OnInit, OnDestroy {
     this.fabricStore.populateFabrics();
     this.getFabricDataByPage();
     this.getBestCostAndBenefit();
+    this.windowWidth = window.innerWidth;
   }
 
   ngOnDestroy(): void {

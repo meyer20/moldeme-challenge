@@ -17,9 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService, private snackbarService: SnackbarService) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     if (this.loginForm.touched && this.loginForm.valid) {

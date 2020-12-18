@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { LoginService } from './login.service';
 import { FabricService } from './fabric.service';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -12,7 +13,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   providers: [
     LoginService,
-    FabricService
+    FabricService,
+    MatSnackBar
   ]
 })
 export class ServicesModule { }

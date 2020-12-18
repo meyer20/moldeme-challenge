@@ -4,11 +4,10 @@ import { NgxYazuoSidenavModule } from 'ngx-yazuo-sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServicesModule } from '../../services/services.module';
 import { CreateFabricModule } from '../create-fabric/create-fabric.module';
-
-import { FactoryListComponent } from './factory-list.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { SharedModule } from '../../shared/shared.module';
 import { FabricDataDetailsModule } from '../fabric-data-details/fabric-data-details.module';
+
+import { FactoryListComponent } from './factory-list.component';
 
 @NgModule({
   imports: [
@@ -17,7 +16,6 @@ import { FabricDataDetailsModule } from '../fabric-data-details/fabric-data-deta
     BrowserAnimationsModule,
     NgxYazuoSidenavModule.forRoot(),
     CreateFabricModule,
-    MatPaginatorModule,
     SharedModule,
     FabricDataDetailsModule
   ],

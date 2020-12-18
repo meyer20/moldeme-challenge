@@ -3,10 +3,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServicesModule } from '../../services/services.module';
 import { SharedModule } from '../../shared/shared.module';
-
-import { CreateFabricComponent } from './create-fabric.component';
 import { SidenavContentModule } from '../../shared/sidenav-content/sidenav-content.module';
 import { FabricDataDetailsModule } from '../fabric-data-details/fabric-data-details.module';
+
+import { CreateFabricComponent } from './create-fabric.component';
 
 @NgModule({
   declarations: [CreateFabricComponent],

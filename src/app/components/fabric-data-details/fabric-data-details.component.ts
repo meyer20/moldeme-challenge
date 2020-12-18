@@ -6,7 +6,7 @@ import { FabricUtils } from '../../shared/utils/fabric.utils';
   templateUrl: './fabric-data-details.component.html',
   styleUrls: ['./fabric-data-details.component.scss']
 })
-export class FabricDataDetailsComponent implements OnInit {
+export class FabricDataDetailsComponent {
   @Input() width;
   @Input() length;
   @Input() grammage;
@@ -15,8 +15,6 @@ export class FabricDataDetailsComponent implements OnInit {
   fabricUtils = FabricUtils;
 
   constructor() { }
-
-  ngOnInit(): void {}
 
   calculateFabricData(calcType: string) {
     switch (calcType) {

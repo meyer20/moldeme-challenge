@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { FabricModel } from '../../domain/classes/fabric/fabric.model';
 import { FabricStore } from '../../stores/fabric.store';
 import { minValueValidator } from '../../shared/utils/min-value-validator.directive';
@@ -10,7 +11,7 @@ import { SnackbarService } from '../../services/snackbar.service';
   templateUrl: './create-fabric.component.html',
   styleUrls: ['./create-fabric.component.scss']
 })
-export class CreateFabricComponent implements OnInit {
+export class CreateFabricComponent {
   @Input() fabricData?: FabricModel;
   @Output() close = new EventEmitter();
   submitButtonClicked = false;
@@ -24,8 +25,6 @@ export class CreateFabricComponent implements OnInit {
   });
 
   constructor(private fabricStore: FabricStore, private snackbarService: SnackbarService) { }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     if (this.fabricForm.valid) {

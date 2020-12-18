@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { FabricModel } from '../domain/classes/fabric/fabric.model';
 import { FabricService } from '../services/fabric.service';
-import { map } from 'rxjs/operators';
 import { ResponseModel } from '../domain/classes/response/response.model';
 import { FabricUtils } from '../shared/utils/fabric.utils';
 
